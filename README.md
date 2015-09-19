@@ -39,7 +39,7 @@ App Engine application for the Udacity training course.
 
 ## Explanation for Tasks 1-4
 
-- [Task 1: Add Sessions to a Conference]
+- ####[Task 1: Add Sessions to a Conference]
 
   We were tasked with adding sessions to a conference and a speaker for a session and be able to get a conference's sessions by the conference id and also session type.
 
@@ -49,7 +49,7 @@ App Engine application for the Udacity training course.
 
   For the endpoint methods, I also used the existing endpoints as samples to follow. For "createSession()", I followed "createConference()" and created static methods,  "createSessionObject" and "copySessionToForm." The "createSession()" method calls "createSessionObject," which actually creates the new Session and returns the request and "copySessionToForm" copies the newly created Session's properties to SessionForm. Inside of "createSessionObject" I made sure to get the conference object that the new session will be created for. The method "getConferenceSessions()" takes in as input a conference key and after validation returns this conference's sessions and getting passed to SessionForms. The method "getConferenceSessionsByType()" is similar to "getConferenceSessions()" but takes in both a conference key and "typeOfSession" as inputs to return all sessions queried by both values and getting passed to SessionForms.
 
-- [Task 2: Add Sessions to User Wishlist]
+- ####[Task 2: Add Sessions to User Wishlist]
 
   We were tasked with adding the capability of allowing users to have a wishlist of sessions that they can use to bookmark sessions and retrieve them.
 
@@ -59,7 +59,7 @@ App Engine application for the Udacity training course.
 
   For the endpoint methods, in "addSessionToWishlist()" I decided to allow adding all conference sessions because that seemed more useful to me from a user perspective. This method takes in a "sessionId" as an input to get the Session that is to be stored. It then checks whether the Session is already in the current user's Session wishlist and then passing validation stores the session in the Profile "sessionsInWishList." The "copySessionToForm" method then gets called to copy this Session's properties to SessionForm for display. In "getSessionsInWishlist()" I get the user profile "sessionsInWishList" and return them in SessionForms since there are multiple Sessions to be stored.
 
-- [Task 3: Work on indexes and queries]
+- ####[Task 3: Work on indexes and queries]
 
   We were tasked to think of two new queries that would be useful for this application, implement them and make sure the indexes support them, and solve a query related problem.  
 
@@ -80,7 +80,7 @@ App Engine application for the Udacity training course.
             Session.typeOfSession == "KEYNOTE",
             Session.typeOfSession == "LECTURE")))
 
-- [Task 4: Add a Task]
+- ####[Task 4: Add a Task]
 
   We were tasked with using the Task Queue API to add new session creations to a taskqueue which will update memcache to store the new session if the new session's speaker already has previous sessions. Then by retrieving this speaker and its sessions to assign this speaker as the "featured speaker."
 
@@ -89,8 +89,8 @@ App Engine application for the Udacity training course.
   When a new session for a conference is being created, I add this operation to the taskqueue by modeling this after the way a conference is added inside of "createConferenceObject." So inside of "createSessionObject" I add the task and it gets handled in "SetFeaturedSpeakerSessionHandler" inside of main.py. The handler calls "cacheFeaturedSpeakerSessions()", which is modeled after "cacheAnnouncement()". This will validate whether or not to store a Memcache entry for the session that is being added based on whether or not more than one session by the speaker already exists across all conference sessions. The endpoints method "getFeaturedSpeaker" reads the Memecache entries as StringProperty types. If there is not currently anything stored in Memcache, the featured speaker will be displayed as "TBD". However, once a new session is being added in which the session's speaker already has sessions then this session's speaker will become the featured speaker. The featured speaker's name and list of sessions will be displayed.
 
 ## Resources used
-[1]: Udacity Discussion Forums
-[2]: Stack Overflow
-[3]: Google App Engine for Python documentation
-[4]: https://github.com/udacity/ud858/tree/master/ConferenceCentral_Complete
-[5]: Developing Scalable Apps in Python Udacity Course
+1. Udacity Discussion Forums
+1. Stack Overflow
+1. Google App Engine for Python documentation
+1. https://github.com/udacity/ud858/tree/master/ConferenceCentral_Complete
+1. Developing Scalable Apps in Python Udacity Course
